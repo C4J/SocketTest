@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="10.0.7" transformSequenceNumber="10">
   <directoryPresets config="." />
-  <application name="SocketTest" applicationId="3043-7407-2720-5348" mediaDir="../../../Distribution/java17/b6SocketTest" shortName="SocketTest" publisher="David Garratt" version="5.01" allPathsRelative="true" macVolumeId="9ea76fc3a641033e" javaMinVersion="17" javaMaxVersion="17">
+  <application name="SocketTest" applicationId="3043-7407-2720-5348" mediaDir="../../../Distribution/java17/b6SocketTest" shortName="SocketTest" publisher="David Garratt" version="5.02" allPathsRelative="true" macVolumeId="9ea76fc3a641033e" javaMinVersion="17" javaMaxVersion="17">
     <jreBundles jdkProviderId="Zulu" release="17/17.0.11" />
   </application>
   <files globalExcludeSuffixes="dirClean.ok,.DS_Store">

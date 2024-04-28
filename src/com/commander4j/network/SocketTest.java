@@ -24,7 +24,7 @@ public class SocketTest extends JFrame {
 
 	public static SocketClientGUI client;
 	public static SocketServerGUI server;
-	public static String version = "5.01";
+	public static String version = "5.02";
 	public static final JImageIconLoader imageIconloader = new JImageIconLoader();
 	public ImageIcon logo = imageIconloader.getImageIcon("logo.gif");
 	public ImageIcon ball = imageIconloader.getImageIcon("ball.gif");

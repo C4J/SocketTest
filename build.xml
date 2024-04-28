@@ -11,10 +11,12 @@
     <path id="b6SocketTest.classpath">
         <pathelement location="bin"/>
         <pathelement location="lib/commons-lang3-3.14.0.jar"/>
+        <pathelement location="lib/commons-io-2.16.1.jar"/>
     </path>
     <path id="run.SocketTest.classpath">
         <path refid="b6SocketTest.classpath"/>
         <pathelement location="lib/commons-lang3-3.14.0.jar"/>
+        <pathelement location="lib/commons-io-2.16.1.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>

@@ -3,19 +3,15 @@ package com.commander4j.network;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Window;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
+import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -23,11 +19,21 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public class Util
 {
 
+	public  static ImageIcon logo = SocketTest.imageIconloader.getImageIcon("logo.gif");
+	public  static ImageIcon sendIcon = SocketTest.imageIconloader.getImageIcon("send.png");
+	public  static ImageIcon clearIcon = SocketTest.imageIconloader.getImageIcon("clear.png");
+	public  static ImageIcon loadIcon = SocketTest.imageIconloader.getImageIcon("load.gif");
+	public  static ImageIcon saveIcon = SocketTest.imageIconloader.getImageIcon("save.gif");
+	public  static ImageIcon exitIcon = SocketTest.imageIconloader.getImageIcon("exit.gif");
+	public  static ImageIcon connectIcon = SocketTest.imageIconloader.getImageIcon("connect.gif");
+	public  static ImageIcon disconnectIcon = SocketTest.imageIconloader.getImageIcon("disconnect.gif");
+	
 	public static String typeServer = "server";
 	public static String typeClient = "client";
 	public static String typeStatus = "status";
@@ -139,27 +145,34 @@ public class Util
 		}
 	}
 
-	public void writeFile(String fileName, String text) throws IOException
+	public void writeFile(File fileName, String text)
 	{
-		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
-		out.print(text);
-		out.close();
+		try
+		{
+			FileUtils.writeStringToFile(fileName, text,"UTF-8");
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public String readFile(String fileName, Object parent) throws IOException
+	public String readFile(String fileName)
 	{
-		StringBuffer sb = new StringBuffer();
-		ClassLoader cl = parent.getClass().getClassLoader();
-		InputStream is = cl.getResourceAsStream(fileName);
-		BufferedReader in = new BufferedReader(new InputStreamReader(is));
-		String s;
-		while ((s = in.readLine()) != null)
+		String result = "";
+		
+		try
 		{
-			sb.append(s);
-			sb.append("\n");
+			result = FileUtils.readFileToString(new File(fileName),"UTF-8");
 		}
-		in.close();
-		return sb.toString();
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	public void log(String msg, JTextPane textPane, boolean printtimestamp, String type)
