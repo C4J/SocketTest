@@ -53,7 +53,7 @@ public class SocketServerGUI extends JPanel
 	private JTextField ipField = new JTextField("127.0.0.1", 20);
 	private JTextField portField = new JTextField("8000", 10);
 
-	private JButton connectButton = new JButton(Util.clearIcon);
+	private JButton connectButton = new JButton(Util.connectIcon);
 	private JButton sendInputButton = new JButton(Util.sendIcon);
 	private JButton clearInputButton = new JButton(Util.clearIcon);
 	private JButton loadInputButton = new JButton(Util.loadIcon);

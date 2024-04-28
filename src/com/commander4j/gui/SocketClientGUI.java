@@ -393,6 +393,7 @@ public class SocketClientGUI extends JPanel
 
 			ipField.setEditable(false);
 			portField.setEditable(false);
+			connectButton.setIcon(Util.disconnectIcon);
 			connectButton.setText("Disconnect");
 			connectButton.setMnemonic('D');
 			connectButton.setToolTipText("Stop Connection");
@@ -430,6 +431,7 @@ public class SocketClientGUI extends JPanel
 		ipField.setEditable(true);
 		portField.setEditable(true);
 		connectButton.setText("Connect");
+		connectButton.setIcon(Util.connectIcon);
 		connectButton.setMnemonic('C');
 		connectButton.setToolTipText("Start Connection");
 		sendInputButton.setEnabled(false);
