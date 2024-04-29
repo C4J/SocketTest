@@ -12,8 +12,10 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -50,7 +52,6 @@ public class SocketServerGUI extends JPanel
 	private JLabel portLabel = new JLabel("Port");
 	private JLabel logoLabel = new JLabel(Util.logo, JLabel.CENTER);
 	
-	private JTextField ipField = new JTextField("127.0.0.1", 20);
 	private JTextField portField = new JTextField("8000", 10);
 
 	private JButton connectButton = new JButton(Util.connectIcon);
@@ -78,6 +79,7 @@ public class SocketServerGUI extends JPanel
 	private JComboBox<String> comboBoxEndofLine = new JComboBox<String>();
 	private JComboBox<String> comboBoxSendSuffix = new JComboBox<String>();
 	private JComboBox<String> comboBoxSendPrefix = new JComboBox<String>();
+	private JComboBox<String> comboBoxIP = new JComboBox<String>();
 	
 	private Util util = new Util();
 
@@ -104,20 +106,6 @@ public class SocketServerGUI extends JPanel
 
 		connectPanel.add(ipLabel);
 
-		ActionListener ipListener = new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				portField.requestFocus();
-			}
-		};
-
-		ipField.setSize(160, 20);
-		ipField.setLocation(119, 20);
-		ipField.addActionListener(ipListener);
-
-		connectPanel.add(ipField);
-
 		portLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		portLabel.setSize(46, 20);
 		portLabel.setLocation(281, 20);
@@ -139,7 +127,7 @@ public class SocketServerGUI extends JPanel
 		connectPanel.add(portField);
 
 		connectButton.setSize(115, 29);
-		connectButton.setLocation(171, 47);
+		connectButton.setLocation(164, 47);
 		connectButton.setMnemonic('S');
 		connectButton.setToolTipText("Start Listening");
 		connectButton.setText("Listen");
@@ -161,6 +149,14 @@ public class SocketServerGUI extends JPanel
 			}
 		});
 		connectPanel.add(disconnectButton);
+		
+		Vector<String> ips = new Vector<String>();
+		ips = util.getIPAddresses();
+		ComboBoxModel<String> jComboBox2Model = new DefaultComboBoxModel<String>(ips);
+
+		comboBoxIP.setModel(jComboBox2Model);
+		comboBoxIP.setBounds(138, 18, 141, 27);
+		connectPanel.add(comboBoxIP);
 
 		topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
 
@@ -383,13 +379,11 @@ public class SocketServerGUI extends JPanel
 			stop();
 			return;
 		}
-		String ip = ipField.getText();
+		String ip = comboBoxIP.getItemAt(comboBoxIP.getSelectedIndex());
 		String port = portField.getText();
 		if (ip == null || ip.equals(""))
 		{
 			JOptionPane.showMessageDialog(SocketServerGUI.this, "No IP Address. Please enter IP Address", "Error connecting", JOptionPane.ERROR_MESSAGE);
-			ipField.requestFocus();
-			ipField.selectAll();
 			return;
 		}
 		if (port == null || port.equals(""))
@@ -403,8 +397,6 @@ public class SocketServerGUI extends JPanel
 		if (!util.checkHost(ip))
 		{
 			JOptionPane.showMessageDialog(SocketServerGUI.this, "Bad IP Address", "Error connecting", JOptionPane.ERROR_MESSAGE);
-			ipField.requestFocus();
-			ipField.selectAll();
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return;
 		}
@@ -430,7 +422,6 @@ public class SocketServerGUI extends JPanel
 				bindAddr = null;
 			server = new ServerSocket(portNo, 1, bindAddr);
 
-			ipField.setEditable(false);
 			portField.setEditable(false);
 
 			connectButton.setText("Stop Listening");
@@ -475,7 +466,7 @@ public class SocketServerGUI extends JPanel
 		{
 		}
 		server = null;
-		ipField.setEditable(true);
+
 		portField.setEditable(true);
 		connectButton.setText("Start Listening");
 		connectButton.setMnemonic('S');

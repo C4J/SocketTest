@@ -6,9 +6,14 @@ import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Vector;
 import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
@@ -25,15 +30,15 @@ import org.apache.commons.lang3.StringUtils;
 public class Util
 {
 
-	public  static ImageIcon logo = SocketTest.imageIconloader.getImageIcon("logo.gif");
-	public  static ImageIcon sendIcon = SocketTest.imageIconloader.getImageIcon("send.png");
-	public  static ImageIcon clearIcon = SocketTest.imageIconloader.getImageIcon("clear.png");
-	public  static ImageIcon loadIcon = SocketTest.imageIconloader.getImageIcon("load.gif");
-	public  static ImageIcon saveIcon = SocketTest.imageIconloader.getImageIcon("save.gif");
-	public  static ImageIcon exitIcon = SocketTest.imageIconloader.getImageIcon("exit.gif");
-	public  static ImageIcon connectIcon = SocketTest.imageIconloader.getImageIcon("connect.gif");
-	public  static ImageIcon disconnectIcon = SocketTest.imageIconloader.getImageIcon("disconnect.gif");
-	
+	public static ImageIcon logo = SocketTest.imageIconloader.getImageIcon("logo.gif");
+	public static ImageIcon sendIcon = SocketTest.imageIconloader.getImageIcon("send.png");
+	public static ImageIcon clearIcon = SocketTest.imageIconloader.getImageIcon("clear.png");
+	public static ImageIcon loadIcon = SocketTest.imageIconloader.getImageIcon("load.gif");
+	public static ImageIcon saveIcon = SocketTest.imageIconloader.getImageIcon("save.gif");
+	public static ImageIcon exitIcon = SocketTest.imageIconloader.getImageIcon("exit.gif");
+	public static ImageIcon connectIcon = SocketTest.imageIconloader.getImageIcon("connect.gif");
+	public static ImageIcon disconnectIcon = SocketTest.imageIconloader.getImageIcon("disconnect.gif");
+
 	public static String typeServer = "server";
 	public static String typeClient = "client";
 	public static String typeStatus = "status";
@@ -149,7 +154,7 @@ public class Util
 	{
 		try
 		{
-			FileUtils.writeStringToFile(fileName, text,"UTF-8");
+			FileUtils.writeStringToFile(fileName, text, "UTF-8");
 		}
 		catch (IOException e)
 		{
@@ -161,17 +166,17 @@ public class Util
 	public String readFile(String fileName)
 	{
 		String result = "";
-		
+
 		try
 		{
-			result = FileUtils.readFileToString(new File(fileName),"UTF-8");
+			result = FileUtils.readFileToString(new File(fileName), "UTF-8");
 		}
 		catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 
@@ -192,7 +197,7 @@ public class Util
 			textPane.setCharacterAttributes(aset_timestamp, false);
 
 			conditionalNewLine(msg, textPane, type);
-			
+
 			textPane.setCharacterAttributes(aset_timestamp, false);
 
 			write_to_pane(textPane, timestamp);
@@ -263,6 +268,34 @@ public class Util
 		{
 
 		}
+
+	}
+
+	public Vector<String> getIPAddresses()
+	{
+		Vector<String> result = new Vector<String>();
+
+		Enumeration<NetworkInterface> nets;
+		try
+		{
+			nets = NetworkInterface.getNetworkInterfaces();
+			for (NetworkInterface netint : Collections.list(nets))
+			{
+				Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
+				for (InetAddress inetAddress : Collections.list(inetAddresses))
+				{
+					if (inetAddress.toString().contains(":") == false)
+					{
+						result.add(inetAddress.toString().replace("/", ""));
+					}
+				}
+			}
+		}
+		catch (SocketException e)
+		{
+
+		}
+		return result;
 
 	}
 

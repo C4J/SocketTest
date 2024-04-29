@@ -52,6 +52,9 @@ public class SocketTest extends JFrame {
 	public static void main(String[] args) {
 		
 		Util util = new Util();
+		
+		util.getIPAddresses();
+		
 		try {
 			UIManager.setLookAndFeel("net.sourceforge.mlf.metouia.MetouiaLookAndFeel");
 		} catch (Exception e) {
