@@ -170,6 +170,11 @@ public class Util
 		try
 		{
 			result = FileUtils.readFileToString(new File(fileName), "UTF-8");
+			
+			//Make sure end of lines are consistent and change to LF
+			
+			result = result.replace(encodeControlChars("<CR>")+encodeControlChars("<LF>"), encodeControlChars("<LF>"));
+			result = result.replace(encodeControlChars("<CR>"), encodeControlChars("<LF>"));
 		}
 		catch (IOException e)
 		{
