@@ -2,7 +2,6 @@ package com.commander4j.gui;
 
 import java.awt.Container;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -169,6 +168,9 @@ public class SocketServerGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				boolean timestampReqd = chckbxTimestamp.isSelected();
+				String logData = "";
+				
 				String msg = messagesField.getText();
 				msg = util.upperCaseTokens(msg);
 
@@ -179,8 +181,17 @@ public class SocketServerGUI extends JPanel
 					
 					//Prefix
 					String prefixMessage =  comboBoxSendPrefix.getItemAt(comboBoxSendPrefix.getSelectedIndex()).toString();
-					transmit(prefixMessage);
-					util.log( prefixMessage, textPane, chckbxTimestamp.isSelected(), Util.typeClient);
+					
+					logData = prefixMessage;
+					
+					transmit(logData);
+					
+					util.log( logData, textPane, timestampReqd, Util.typeClient);
+					
+					if (logData.equals("")==false)
+					{
+						timestampReqd=false;
+					}
 
 					for (int x = 0; x < lines.length; x++)
 					{
@@ -188,15 +199,32 @@ public class SocketServerGUI extends JPanel
 						String prefixLine=comboBoxStartofLine.getItemAt(comboBoxStartofLine.getSelectedIndex()).toString();
 						String suffixLine=comboBoxEndofLine.getItemAt(comboBoxEndofLine.getSelectedIndex()).toString();
 						
-						transmit(prefixLine+lines[x]+suffixLine);
-						util.log( prefixLine+lines[x]+suffixLine, textPane, chckbxTimestamp.isSelected(), Util.typeClient);
+						logData = prefixLine+lines[x]+suffixLine;
+						
+						transmit(logData);
+
+						util.log( logData, textPane, timestampReqd, Util.typeClient);
+						
+						if (logData.equals("")==false)
+						{
+							timestampReqd=false;
+						}
 						
 					}
 					
 					//Suffix
 					String suffixMessage =  comboBoxSendSuffix.getItemAt(comboBoxSendSuffix.getSelectedIndex()).toString();
-					transmit(suffixMessage);
-					util.log( suffixMessage, textPane, chckbxTimestamp.isSelected(), Util.typeClient);
+					
+					logData = suffixMessage;
+					
+					transmit(logData);
+					
+					util.log( logData, textPane, timestampReqd, Util.typeClient);
+					
+					if (logData.equals("")==false)
+					{
+						timestampReqd=false;
+					}
 
 				}
 			}
@@ -221,7 +249,7 @@ public class SocketServerGUI extends JPanel
 		cp.add(centerPanel);
 
 		messagesField.setLocation(26, 0);
-		messagesField.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		messagesField.setFont(Util.textFont);
 
 		JScrollPane jsp = new JScrollPane(messagesField);
 		jsp.setBounds(26, 30, 450, 500);
@@ -308,7 +336,8 @@ public class SocketServerGUI extends JPanel
 		scrollPane.setBounds(500, 30, 450, 500);
 		centerPanel.add(scrollPane);
 		textPane.setBackground(Util.log_Color_BG);
-
+		textPane.setFont(Util.textFont);
+		textPane.setEditorKit(new WrapEditorKit());
 		scrollPane.setViewportView(textPane);
 		chckbxTimestamp.setBounds(496, 534, 128, 23);
 

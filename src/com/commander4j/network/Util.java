@@ -2,6 +2,7 @@ package com.commander4j.network;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +55,7 @@ public class Util
 	public static Color status_Color_BG = Color.LIGHT_GRAY;
 	public static Color time_Color_BG = Color.BLACK;
 
+	public static Color log_Color_FG = Color.BLACK;
 	public static Color log_Color_BG = Color.LIGHT_GRAY;
 
 	private ControlCodes controlCodes = new ControlCodes();
@@ -67,6 +69,7 @@ public class Util
 	private AttributeSet aset_server_data;
 	private AttributeSet aset_status;
 	private AttributeSet aset_timestamp;
+	private AttributeSet aset_log;
 
 	private String timestamp = "";
 
@@ -75,11 +78,17 @@ public class Util
 
 	public String NEW_LINE = "\r\n";
 
+	public static Font textFont = new Font("Courier New", Font.PLAIN, 11);
+
 	public Util()
 	{
 		aset_timestamp = sc_timestamp.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 		aset_timestamp = sc_timestamp.addAttribute(aset_timestamp, StyleConstants.Foreground, Util.time_Color_FG);
 		aset_timestamp = sc_timestamp.addAttribute(aset_timestamp, StyleConstants.Background, Util.time_Color_BG);
+		
+		aset_log = sc_timestamp.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+		aset_log = sc_timestamp.addAttribute(aset_log, StyleConstants.Foreground, Util.log_Color_FG);
+		aset_log = sc_timestamp.addAttribute(aset_log, StyleConstants.Background, Util.log_Color_BG);
 
 		aset_status = sc_message.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 		aset_status = sc_message.addAttribute(aset_status, StyleConstants.Foreground, Util.status_Color_FG);
@@ -170,10 +179,10 @@ public class Util
 		try
 		{
 			result = FileUtils.readFileToString(new File(fileName), "UTF-8");
-			
-			//Make sure end of lines are consistent and change to LF
-			
-			result = result.replace(encodeControlChars("<CR>")+encodeControlChars("<LF>"), encodeControlChars("<LF>"));
+
+			// Make sure end of lines are consistent and change to LF
+
+			result = result.replace(encodeControlChars("<CR>") + encodeControlChars("<LF>"), encodeControlChars("<LF>"));
 			result = result.replace(encodeControlChars("<CR>"), encodeControlChars("<LF>"));
 		}
 		catch (IOException e)
@@ -187,42 +196,46 @@ public class Util
 
 	public void log(String msg, JTextPane textPane, boolean printtimestamp, String type)
 	{
-		msg = msg.replace("<CR><LF>", "<*CR*><*LF*>");
-		msg = msg.replace("<LF>", "<LF>" + encodeControlChars("<LF>"));
-		msg = msg.replace("<CR>", "<CR>" + encodeControlChars("<LF>"));
-		msg = msg.replace("<*CR*><*LF*>", "<CR><LF>");
-		msg = msg.replace("<CR><LF>", "<CR><LF>" + encodeControlChars("<LF>"));
-
-		if (printtimestamp)
+		if (msg.equals("") == false)
 		{
-			cal = Calendar.getInstance();
 
-			timestamp = "[" + sdf.format(cal.getTimeInMillis()) + "]";
+			msg = msg.replace("<CR><LF>", "<*CR*><*LF*>");
+			msg = msg.replace("<LF>", "<LF>" + encodeControlChars("<LF>"));
+			msg = msg.replace("<CR>", "<CR>" + encodeControlChars("<LF>"));
+			msg = msg.replace("<*CR*><*LF*>", "<CR><LF>");
+			msg = msg.replace("<CR><LF>", "<CR><LF>" + encodeControlChars("<LF>"));
 
-			textPane.setCharacterAttributes(aset_timestamp, false);
+			if (printtimestamp)
+			{
+				cal = Calendar.getInstance();
 
-			conditionalNewLine(msg, textPane, type);
+				timestamp = "[" + sdf.format(cal.getTimeInMillis()) + "]";
 
-			textPane.setCharacterAttributes(aset_timestamp, false);
+				textPane.setCharacterAttributes(aset_timestamp, false);
 
-			write_to_pane(textPane, timestamp);
+				conditionalNewLine(msg, textPane, type);
+
+				textPane.setCharacterAttributes(aset_timestamp, false);
+
+				write_to_pane(textPane, timestamp);
+			}
+
+			if (type.equals(typeServer))
+			{
+				textPane.setCharacterAttributes(aset_server_data, false);
+			}
+			if (type.equals(typeClient))
+			{
+				textPane.setCharacterAttributes(aset_client_data, false);
+			}
+			if (type.equals(typeStatus))
+			{
+				conditionalNewLine(msg, textPane, type);
+				textPane.setCharacterAttributes(aset_status, false);
+			}
+
+			write_to_pane(textPane, msg);
 		}
-
-		if (type.equals(typeServer))
-		{
-			textPane.setCharacterAttributes(aset_server_data, false);
-		}
-		if (type.equals(typeClient))
-		{
-			textPane.setCharacterAttributes(aset_client_data, false);
-		}
-		if (type.equals(typeStatus))
-		{
-			conditionalNewLine(msg, textPane, type);
-			textPane.setCharacterAttributes(aset_status, false);
-		}
-
-		write_to_pane(textPane, msg);
 	}
 
 	private void write_to_pane(JTextPane textPane, String msg)
@@ -264,7 +277,8 @@ public class Util
 					{
 						textPane.setCharacterAttributes(aset_status, false);
 					}
-
+					
+					textPane.setCharacterAttributes(aset_log, false);
 					write_to_pane(textPane, NEW_LINE);
 				}
 			}

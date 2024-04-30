@@ -2,7 +2,6 @@ package com.commander4j.gui;
 
 import java.awt.Container;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -183,6 +182,9 @@ public class SocketClientGUI extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 
+				boolean timestampReqd = chckbxTimestamp.isSelected();
+				String logData = "";
+				
 				String msg = messagesField.getText();
 				msg = util.upperCaseTokens(msg);
 
@@ -193,8 +195,17 @@ public class SocketClientGUI extends JPanel
 					
 					//Prefix
 					String prefixMessage =  comboBoxSendPrefix.getItemAt(comboBoxSendPrefix.getSelectedIndex()).toString();
-					transmit(prefixMessage);
-					util.log( prefixMessage, textPane, chckbxTimestamp.isSelected(), Util.typeClient);
+					
+					logData = prefixMessage;
+					
+					transmit(logData);
+					
+					util.log( logData, textPane, timestampReqd, Util.typeClient);
+					
+					if (logData.equals("")==false)
+					{
+						timestampReqd=false;
+					}
 
 					for (int x = 0; x < lines.length; x++)
 					{
@@ -202,15 +213,32 @@ public class SocketClientGUI extends JPanel
 						String prefixLine=comboBoxStartofLine.getItemAt(comboBoxStartofLine.getSelectedIndex()).toString();
 						String suffixLine=comboBoxEndofLine.getItemAt(comboBoxEndofLine.getSelectedIndex()).toString();
 						
-						transmit(prefixLine+lines[x]+suffixLine);
-						util.log( prefixLine+lines[x]+suffixLine, textPane, chckbxTimestamp.isSelected(), Util.typeClient);
+						logData = prefixLine+lines[x]+suffixLine;
+						
+						transmit(logData);
+
+						util.log( logData, textPane, timestampReqd, Util.typeClient);
+						
+						if (logData.equals("")==false)
+						{
+							timestampReqd=false;
+						}
 						
 					}
 					
 					//Suffix
 					String suffixMessage =  comboBoxSendSuffix.getItemAt(comboBoxSendSuffix.getSelectedIndex()).toString();
-					transmit(suffixMessage);
-					util.log( suffixMessage, textPane, chckbxTimestamp.isSelected(), Util.typeClient);
+					
+					logData = suffixMessage;
+					
+					transmit(logData);
+					
+					util.log( logData, textPane, timestampReqd, Util.typeClient);
+					
+					if (logData.equals("")==false)
+					{
+						timestampReqd=false;
+					}
 
 				}
 
@@ -243,7 +271,7 @@ public class SocketClientGUI extends JPanel
 		comboBoxStartofLine.setSelectedIndex(0);
 		
 		cp.add(centerPanel);
-		messagesField.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		messagesField.setFont(Util.textFont);
 
 		JScrollPane jsp = new JScrollPane(messagesField);
 		jsp.setBounds(26, 30, 450, 500);
@@ -281,7 +309,9 @@ public class SocketClientGUI extends JPanel
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(500, 30, 450, 500);
 		centerPanel.add(scrollPane);
+		textPane.setFont(Util.textFont);
 		textPane.setBackground(Util.log_Color_BG);
+		textPane.setEditorKit(new WrapEditorKit());
 
 		scrollPane.setViewportView(textPane);
 
@@ -386,6 +416,7 @@ public class SocketClientGUI extends JPanel
 			disconnect();
 			return;
 		}
+		
 		String ip = comboBoxIP.getItemAt(comboBoxIP.getSelectedIndex());
 		String port = portField.getText();
 		if (ip == null || ip.equals(""))
@@ -393,6 +424,7 @@ public class SocketClientGUI extends JPanel
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "No IP Address. Please enter IP Address", "Error connecting", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		
 		if (port == null || port.equals(""))
 		{
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "No Port number. Please enter Port number", "Error connecting", JOptionPane.ERROR_MESSAGE);
@@ -400,13 +432,16 @@ public class SocketClientGUI extends JPanel
 			portField.selectAll();
 			return;
 		}
+		
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		
 		if (!util.checkHost(ip))
 		{
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "Bad IP Address", "Error connecting", JOptionPane.ERROR_MESSAGE);
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return;
 		}
+		
 		int portNo = 0;
 		try
 		{
@@ -420,6 +455,7 @@ public class SocketClientGUI extends JPanel
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return;
 		}
+		
 		try
 		{
 
@@ -440,9 +476,10 @@ public class SocketClientGUI extends JPanel
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return;
 		}
+		
 		changeBorder(" " + socket.getInetAddress().getHostName() + " [" + socket.getInetAddress().getHostAddress() + "] ");
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		// messagesField.setText("");
+
 		socketClient = SocketClient.handle(this, socket);
 		messagesField.requestFocus();
 	}
