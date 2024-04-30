@@ -38,6 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.commander4j.network.SocketServer;
 import com.commander4j.network.Util;
+import java.awt.Color;
 
 public class SocketServerGUI extends JPanel
 {
@@ -85,6 +86,8 @@ public class SocketServerGUI extends JPanel
 	private JComboBox<String> comboBoxIP = new JComboBox<String>();
 	
 	private Util util = new Util();
+	private final JLabel lblInput = new JLabel("Input");
+	private final JLabel lblOutput = new JLabel("Log");
 
 	public SocketServerGUI(final JFrame parent)
 	{
@@ -252,7 +255,7 @@ public class SocketServerGUI extends JPanel
 		messagesField.setFont(Util.textFont);
 
 		JScrollPane jsp = new JScrollPane(messagesField);
-		jsp.setBounds(26, 30, 450, 500);
+		jsp.setBounds(26, 42, 450, 488);
 
 		centerPanel.add(jsp);
 
@@ -333,7 +336,7 @@ public class SocketServerGUI extends JPanel
 		centerPanel.add(btnClose);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(500, 30, 450, 500);
+		scrollPane.setBounds(500, 42, 450, 488);
 		centerPanel.add(scrollPane);
 		textPane.setBackground(Util.log_Color_BG);
 		textPane.setFont(Util.textFont);
@@ -379,6 +382,16 @@ public class SocketServerGUI extends JPanel
 		saveLogButton.setText("Save");
 		saveLogButton.setBounds(743, 532, 95, 29);
 		centerPanel.add(saveLogButton);
+		lblInput.setForeground(Color.BLUE);
+		lblInput.setHorizontalAlignment(SwingConstants.LEFT);
+		lblInput.setBounds(26, 21, 441, 20);
+		
+		centerPanel.add(lblInput);
+		lblOutput.setHorizontalAlignment(SwingConstants.LEFT);
+		lblOutput.setForeground(Color.BLUE);
+		lblOutput.setBounds(500, 21, 441, 20);
+		
+		centerPanel.add(lblOutput);
 
 		logoLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
 		logoLabel.setHorizontalTextPosition(SwingConstants.CENTER);
