@@ -255,7 +255,7 @@ public class SocketServerGUI extends JPanel
 		messagesField.setFont(Util.textFont);
 
 		JScrollPane jsp = new JScrollPane(messagesField);
-		jsp.setBounds(26, 42, 450, 488);
+		jsp.setBounds(26, 42, 450, 483);
 
 		centerPanel.add(jsp);
 
@@ -336,7 +336,7 @@ public class SocketServerGUI extends JPanel
 		centerPanel.add(btnClose);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(500, 42, 450, 488);
+		scrollPane.setBounds(500, 42, 450, 483);
 		centerPanel.add(scrollPane);
 		textPane.setBackground(Util.log_Color_BG);
 		textPane.setFont(Util.textFont);

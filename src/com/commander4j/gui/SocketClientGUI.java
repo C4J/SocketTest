@@ -310,7 +310,7 @@ public class SocketClientGUI extends JPanel
 		btnClose.setMnemonic(KeyEvent.VK_X);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(500, 42, 450, 500);
+		scrollPane.setBounds(500, 42, 450, 483);
 		centerPanel.add(scrollPane);
 		textPane.setFont(Util.textFont);
 		textPane.setBackground(Util.log_Color_BG);
