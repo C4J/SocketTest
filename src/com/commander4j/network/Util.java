@@ -45,18 +45,20 @@ public class Util
 	public static String typeStatus = "status";
 	public static String typeLog = "log";
 
-	public static Color client_Color_FG = Color.BLUE;
-	public static Color server_Color_FG = Color.MAGENTA;
-	public static Color status_Color_FG = Color.RED;
-	public static Color time_Color_FG = Color.WHITE;
+	public static Color client_Color_FG = Color.green;
+	public static Color client_Color_BG = Color.black;
+	
+	public static Color server_Color_FG = Color.yellow;
+	public static Color server_Color_BG = Color.black;
+	
+	public static Color status_Color_FG = Color.orange;
+	public static Color status_Color_BG = Color.black;
+	
+	public static Color time_Color_FG = Color.black;
+	public static Color time_Color_BG = Color.white;
 
-	public static Color client_Color_BG = Color.WHITE;
-	public static Color server_Color_BG = Color.WHITE;
-	public static Color status_Color_BG = Color.LIGHT_GRAY;
-	public static Color time_Color_BG = Color.BLACK;
-
-	public static Color log_Color_FG = Color.BLACK;
-	public static Color log_Color_BG = Color.LIGHT_GRAY;
+	public static Color log_Color_FG = Color.white;
+	public static Color log_Color_BG = Color.black;
 
 	private ControlCodes controlCodes = new ControlCodes();
 

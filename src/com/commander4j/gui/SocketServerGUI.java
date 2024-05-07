@@ -189,7 +189,7 @@ public class SocketServerGUI extends JPanel
 					
 					transmit(logData);
 					
-					util.log( logData, textPane, timestampReqd, Util.typeClient);
+					util.log( logData, textPane, timestampReqd, Util.typeServer);
 					
 					if (logData.equals("")==false)
 					{
@@ -206,7 +206,7 @@ public class SocketServerGUI extends JPanel
 						
 						transmit(logData);
 
-						util.log( logData, textPane, timestampReqd, Util.typeClient);
+						util.log( logData, textPane, timestampReqd, Util.typeServer);
 						
 						if (logData.equals("")==false)
 						{
@@ -222,7 +222,7 @@ public class SocketServerGUI extends JPanel
 					
 					transmit(logData);
 					
-					util.log( logData, textPane, timestampReqd, Util.typeClient);
+					util.log( logData, textPane, timestampReqd, Util.typeServer);
 					
 					if (logData.equals("")==false)
 					{
