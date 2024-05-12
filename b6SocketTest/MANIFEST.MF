@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.commander4j.network.SocketTest
+Class-Path: lib/commons-io-2.16.1.jar 
+ lib/commons-lang3-3.14.0.jar 
