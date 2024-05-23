@@ -48,7 +48,7 @@ public class Util
 	public static Color client_Color_FG = Color.green;
 	public static Color client_Color_BG = Color.black;
 	
-	public static Color server_Color_FG = Color.red;
+	public static Color server_Color_FG = Color.white;
 	public static Color server_Color_BG = Color.black;
 	
 	public static Color status_Color_FG = Color.yellow;

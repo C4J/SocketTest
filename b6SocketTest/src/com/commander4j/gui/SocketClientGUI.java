@@ -430,7 +430,7 @@ public class SocketClientGUI extends JPanel
 			return;
 		}
 		
-		String ip = comboBoxIP.getItemAt(comboBoxIP.getSelectedIndex());
+		String ip = comboBoxIP.getEditor().getItem().toString();
 		String port = portField.getText();
 		if (ip == null || ip.equals(""))
 		{
