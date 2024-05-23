@@ -525,5 +525,8 @@ return console.askYesNo(message, true);
     <windows name="Windows 64bit" id="76" architecture="64">
       <jreBundle includedJre="windows-amd64-1.8.0_202" />
     </windows>
+    <unixInstaller name="Unix Installer" id="143">
+      <jreBundle jreBundleSource="none" />
+    </unixInstaller>
   </mediaSets>
 </install4j>
