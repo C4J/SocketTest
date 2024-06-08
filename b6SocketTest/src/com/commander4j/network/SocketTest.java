@@ -2,6 +2,9 @@ package com.commander4j.network;
 
 import java.awt.Component; 
 import java.awt.Container;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.Rectangle;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,7 +27,7 @@ public class SocketTest extends JFrame {
 
 	public static SocketClientGUI client;
 	public static SocketServerGUI server;
-	public static String version = "5.06";
+	public static String version = "5.07";
 	public static final JImageIconLoader imageIconloader = new JImageIconLoader();
 	public ImageIcon logo = imageIconloader.getImageIcon("logo.gif");
 	public ImageIcon ball = imageIconloader.getImageIcon("ball.gif");
@@ -69,7 +72,17 @@ public class SocketTest extends JFrame {
 		SocketTest st = new SocketTest();
 		st.setTitle("SocketTest v"+version);
 		st.setSize(1010, 750);
-		util.centerWindow(st);
+		
+		
+		GraphicsDevice gd = Util.getGraphicsDevice();
+		
+		GraphicsConfiguration gc = gd.getDefaultConfiguration();
+
+		Rectangle screenBounds = gc.getBounds();
+
+		st.setBounds(screenBounds.x + ((screenBounds.width - st.getWidth()) / 2), screenBounds.y + ((screenBounds.height - st.getHeight()) / 2), st.getWidth(), st.getHeight());
+
+		
 		st.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		st.setIconImage(st.logo.getImage());
 
