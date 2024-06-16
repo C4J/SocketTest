@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="10.0.8" transformSequenceNumber="10">
   <directoryPresets config="." />
-  <application name="SocketTest" applicationId="3043-7407-2720-5348" mediaDir="../../../Distribution/java17/b6SocketTest" shortName="SocketTest" publisher="David Garratt" version="5.07" allPathsRelative="true" macVolumeId="9ea76fc3a641033e" javaMinVersion="17" javaMaxVersion="17">
+  <application name="SocketTest" applicationId="3043-7407-2720-5348" mediaDir="../../../Distribution/java17/b6SocketTest" shortName="SocketTest" publisher="David Garratt" version="5.08" allPathsRelative="true" macVolumeId="9ea76fc3a641033e" javaMinVersion="17" javaMaxVersion="17">
     <jreBundles jdkProviderId="Zulu" release="17/17.0.11" />
   </application>
   <files globalExcludeSuffixes="dirClean.ok,.DS_Store">
@@ -516,16 +516,22 @@ return console.askYesNo(message, true);
     </styles>
   </installerGui>
   <mediaSets>
-    <macosFolder name="macOS Folder" id="134" architecture="universal">
+    <macosFolder name="macOS Folder Intel" id="134" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_intel_mac${compiler:sys.withJre}">
       <jreBundle usePack200="false" />
     </macosFolder>
-    <windows name="Windows 32bit" id="74" architecture="32">
+    <macosFolder name="macOS Folder Silicon" id="148" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_silicon_mac${compiler:sys.withJre}" architecture="aarch64">
+      <jreBundle usePack200="false" />
+    </macosFolder>
+    <windows name="Windows 32bit" id="74" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_${compiler:sys.platform}${compiler:sys.withJre}" customInstallBaseDir="C:\" architecture="32">
       <jreBundle includedJre="windows-x86-1.8.0_202" />
     </windows>
-    <windows name="Windows 64bit" id="76" architecture="64">
+    <windows name="Windows 64bit" id="76" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_${compiler:sys.platform}${compiler:sys.withJre}" customInstallBaseDir="C:\" architecture="64">
       <jreBundle includedJre="windows-amd64-1.8.0_202" />
     </windows>
-    <unixInstaller name="Unix Installer" id="143">
+    <windows name="Windows arm64" id="145" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_${compiler:sys.platform}${compiler:sys.withJre}" customInstallBaseDir="C:\" architecture="arm64">
+      <jreBundle includedJre="windows-amd64-1.8.0_202" />
+    </windows>
+    <unixInstaller name="Linux Installer" id="143" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_linux${compiler:sys.withJre}">
       <jreBundle jreBundleSource="none" />
     </unixInstaller>
   </mediaSets>
