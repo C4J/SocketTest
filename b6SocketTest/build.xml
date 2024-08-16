@@ -10,13 +10,9 @@
     <property name="source" value="17"/>
     <path id="b6SocketTest.classpath">
         <pathelement location="bin"/>
-        <pathelement location="lib/commons-lang3-3.14.0.jar"/>
-        <pathelement location="lib/commons-io-2.16.1.jar"/>
-    </path>
-    <path id="run.SocketTest.classpath">
-        <path refid="b6SocketTest.classpath"/>
-        <pathelement location="lib/commons-lang3-3.14.0.jar"/>
-        <pathelement location="lib/commons-io-2.16.1.jar"/>
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+        </fileset>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -40,9 +36,4 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target name="SocketTest">
-        <java classname="com.commander4j.network.SocketTest" failonerror="true" fork="yes">
-            <classpath refid="run.SocketTest.classpath"/>
-        </java>
-    </target>
 </project>

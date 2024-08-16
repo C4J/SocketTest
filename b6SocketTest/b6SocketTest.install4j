@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="10.0.8" transformSequenceNumber="10">
   <directoryPresets config="." />
-  <application name="SocketTest" applicationId="3043-7407-2720-5348" mediaDir="../../../Distribution/java17/b6SocketTest" shortName="SocketTest" publisher="David Garratt" version="5.08" allPathsRelative="true" macVolumeId="9ea76fc3a641033e" javaMinVersion="17" javaMaxVersion="17">
-    <jreBundles jdkProviderId="Zulu" release="17/17.0.11" />
+  <application name="SocketTest" applicationId="3043-7407-2720-5348" mediaDir="../../../Distribution/java17/b6SocketTest" shortName="SocketTest" publisher="David Garratt" version="5.11" allPathsRelative="true" macVolumeId="9ea76fc3a641033e" javaMinVersion="17" javaMaxVersion="17">
+    <jreBundles jdkProviderId="Zulu" release="17/17.0.12" />
   </application>
   <files globalExcludeSuffixes="dirClean.ok,.DS_Store">
     <mountPoints>
@@ -187,6 +187,7 @@ return console.askOkCancel(message, true);
           </screen>
           <screen id="8" beanClass="com.install4j.runtime.beans.screens.InstallationScreen" rollbackBarrier="true">
             <actions>
+              <action id="149" beanClass="com.install4j.runtime.beans.actions.UninstallPreviousAction" actionElevationType="none" rollbackBarrierExitCode="0" />
               <action id="9" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" actionElevationType="elevated" failureStrategy="quit" errorMessage="${i18n:FileCorrupted}" />
               <action id="10" beanClass="com.install4j.runtime.beans.actions.desktop.CreateProgramGroupAction" actionElevationType="elevated">
                 <serializedBean>
@@ -516,10 +517,10 @@ return console.askYesNo(message, true);
     </styles>
   </installerGui>
   <mediaSets>
-    <macosFolder name="macOS Folder Intel" id="134" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_intel_mac${compiler:sys.withJre}">
+    <macosFolder name="macOS Folder Intel" id="134" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_apple_intel${compiler:sys.withJre}">
       <jreBundle usePack200="false" />
     </macosFolder>
-    <macosFolder name="macOS Folder Silicon" id="148" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_silicon_mac${compiler:sys.withJre}" architecture="aarch64">
+    <macosFolder name="macOS Folder Silicon" id="148" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_apple_silicon${compiler:sys.withJre}" architecture="aarch64">
       <jreBundle usePack200="false" />
     </macosFolder>
     <windows name="Windows 32bit" id="74" mediaFileName="${compiler:sys.shortName}_${compiler:sys.version}_${compiler:sys.platform}${compiler:sys.withJre}" customInstallBaseDir="C:\" architecture="32">
