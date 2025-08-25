@@ -462,7 +462,7 @@ public class SocketServerGUI extends JPanel
 			stop();
 			return;
 		}
-		String ip = comboBoxIP.getItemAt(comboBoxIP.getSelectedIndex());
+		String ip = comboBoxIP.getSelectedItem().toString();
 		String port = portField.getText();
 		if (ip == null || ip.equals(""))
 		{

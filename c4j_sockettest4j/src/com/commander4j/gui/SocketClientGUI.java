@@ -130,6 +130,7 @@ public class SocketClientGUI extends JPanel
 		Vector<String> ips = new Vector<String>();
 		ips = util.getIPAddresses();
 		ComboBoxModel<String> jComboBox2Model = new DefaultComboBoxModel<String>(ips);
+		comboBoxIP.setEditable(true);
 
 		comboBoxIP.setModel(jComboBox2Model);
 		comboBoxIP.setBounds(90, 20, 141, 27);
@@ -429,7 +430,7 @@ public class SocketClientGUI extends JPanel
 			return;
 		}
 		
-		String ip = comboBoxIP.getEditor().getItem().toString();
+		String ip = comboBoxIP.getSelectedItem().toString();
 		String port = portField.getText();
 		if (ip == null || ip.equals(""))
 		{
