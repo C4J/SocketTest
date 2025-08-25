@@ -27,7 +27,7 @@ public class SocketTest extends JFrame {
 
 	public static SocketClientGUI client;
 	public static SocketServerGUI server;
-	public static String version = "5.70";
+	public static String version = "5.72";
 	public static final JImageIconLoader imageIconloader = new JImageIconLoader();
 	public ImageIcon logo = imageIconloader.getImageIcon("logo.gif");
 	public ImageIcon ball = imageIconloader.getImageIcon("ball.gif");
@@ -35,6 +35,7 @@ public class SocketTest extends JFrame {
 
 	/** Creates a new instance of SocketTest */
 	public SocketTest() {
+		setResizable(false);
 		Container cp = getContentPane();
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
