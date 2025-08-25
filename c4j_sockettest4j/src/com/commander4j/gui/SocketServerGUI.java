@@ -99,7 +99,7 @@ public class SocketServerGUI extends JPanel
 		Container cp = this;
 
 		topPanel = new JPanel();
-		topPanel.setBounds(6, 6, 805, 85);
+		topPanel.setBounds(6, 6, 805, 103);
 		topPanel.setLayout(null);
 
 		connectPanel = new JPanel();
@@ -107,13 +107,13 @@ public class SocketServerGUI extends JPanel
 		connectPanel.setLayout(null);
 
 		ipLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		ipLabel.setSize(84, 20);
+		ipLabel.setSize(84, 27);
 		ipLabel.setLocation(3, 20);
 
 		connectPanel.add(ipLabel);
 
 		portLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		portLabel.setSize(46, 20);
+		portLabel.setSize(46, 27);
 		portLabel.setLocation(41, 50);
 
 		connectPanel.add(portLabel);
@@ -126,14 +126,14 @@ public class SocketServerGUI extends JPanel
 			}
 		};
 
-		portField.setSize(75, 20);
+		portField.setSize(75, 27);
 		portField.setLocation(90, 50);
 		portField.addActionListener(connectListener);
 
 		connectPanel.add(portField);
 
-		connectButton.setSize(115, 29);
-		connectButton.setLocation(228, 17);
+		connectButton.setSize(115, 27);
+		connectButton.setLocation(228, 20);
 		connectButton.setMnemonic(KeyEvent.VK_G);
 		connectButton.setToolTipText("Start Listening");
 		connectButton.setText("Listen");
@@ -146,7 +146,7 @@ public class SocketServerGUI extends JPanel
 		topPanel.add(connectPanel);
 
 		disconnectButton.setEnabled(false);
-		disconnectButton.setBounds(228, 47, 115, 29);
+		disconnectButton.setBounds(228, 47, 115, 27);
 		disconnectButton.setText("Disconnect");
 		disconnectButton.addActionListener(new ActionListener()
 		{
@@ -162,7 +162,7 @@ public class SocketServerGUI extends JPanel
 		ComboBoxModel<String> jComboBox2Model = new DefaultComboBoxModel<String>(ips);
 
 		comboBoxIP.setModel(jComboBox2Model);
-		comboBoxIP.setBounds(90, 18, 141, 27);
+		comboBoxIP.setBounds(90, 20, 141, 27);
 		connectPanel.add(comboBoxIP);
 
 		topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
@@ -242,7 +242,7 @@ public class SocketServerGUI extends JPanel
 		};
 
 		centerPanel = new JPanel();
-		centerPanel.setBounds(0, 90, 980, 587);
+		centerPanel.setBounds(0, 102, 980, 583);
 		centerPanel.setLayout(null);
 
 		CompoundBorder cb = new CompoundBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10), connectedBorder);
@@ -395,7 +395,7 @@ public class SocketServerGUI extends JPanel
 
 		logoLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
 		logoLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-		logoLabel.setBounds(867, 5, 104, 85);
+		logoLabel.setBounds(867, 7, 104, 85);
 		add(logoLabel);
 
 		sendInputButton.addActionListener(sendListener);
@@ -428,7 +428,7 @@ public class SocketServerGUI extends JPanel
 
 		JLabel lblAppendToMessage = new JLabel("Send Suffix");
 		lblAppendToMessage.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAppendToMessage.setBounds(357, 64, 79, 16);
+		lblAppendToMessage.setBounds(357, 61, 79, 27);
 		topPanel.add(lblAppendToMessage);
 
 		comboBoxSendPrefix.setEditable(true);
@@ -439,19 +439,19 @@ public class SocketServerGUI extends JPanel
 
 		JLabel lblSendPrefix = new JLabel("Send Prefix");
 		lblSendPrefix.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblSendPrefix.setBounds(357, 15, 79, 16);
+		lblSendPrefix.setBounds(357, 4, 79, 27);
 		topPanel.add(lblSendPrefix);
 
 		JLabel lblEndOfLine = new JLabel("End of Line");
 		lblEndOfLine.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblEndOfLine.setBounds(576, 40, 79, 16);
+		lblEndOfLine.setBounds(576, 33, 79, 27);
 		topPanel.add(lblEndOfLine);
-		chckbxProxy.setBounds(667, 62, 67, 23);
+		chckbxProxy.setBounds(667, 62, 67, 27);
 		topPanel.add(chckbxProxy);
 		
 		JLabel lblStartOfLine = new JLabel("Start of Line");
 		lblStartOfLine.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblStartOfLine.setBounds(357, 40, 79, 16);
+		lblStartOfLine.setBounds(357, 33, 79, 27);
 		topPanel.add(lblStartOfLine);
 	}
 

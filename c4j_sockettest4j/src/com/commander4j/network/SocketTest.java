@@ -1,6 +1,6 @@
 package com.commander4j.network;
 
-import java.awt.Component; 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-import javax.swing.UIManager;
 
 import com.commander4j.gui.JImageIconLoader;
 import com.commander4j.gui.SocketClientGUI;
@@ -59,16 +58,8 @@ public class SocketTest extends JFrame {
 		
 		util.getIPAddresses();
 		
-		try {
-			UIManager.setLookAndFeel("net.sourceforge.mlf.metouia.MetouiaLookAndFeel");
-		} catch (Exception e) {
-			// e.printStackTrace();
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (Exception ee) {
-				System.out.println("Error setting native LAF: " + ee);
-			}
-		}
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
+		util.setLookAndFeel("Nimbus");
 
 		SocketTest st = new SocketTest();
 		st.setTitle("SocketTest v"+version);

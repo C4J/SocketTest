@@ -25,6 +25,11 @@ import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.OceanTheme;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -112,6 +117,59 @@ public class Util
 
 	}
 
+	public void setLookandFeel()
+	{
+
+		try
+		{
+			SetLookAndFeel("Metal", "Ocean");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void SetLookAndFeel(String LOOKANDFEEL, String THEME)
+	{
+		try
+		{
+			if (LOOKANDFEEL.equals("Metal"))
+			{
+				if (THEME.equals("DefaultMetal"))
+					MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
+				else if (THEME.equals("Ocean"))
+					MetalLookAndFeel.setCurrentTheme(new OceanTheme());
+
+				UIManager.setLookAndFeel(new MetalLookAndFeel());
+
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void setLookAndFeel(String LAF)
+	{
+		try
+		{
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+			{
+				if (LAF.equals(info.getName()))
+				{
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		}
+		catch (Exception e)
+		{
+
+		}
+	}
+	
 	public static GraphicsDevice getGraphicsDevice()
 	{
 		GraphicsDevice result;

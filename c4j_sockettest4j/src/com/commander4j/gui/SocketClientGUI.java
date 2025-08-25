@@ -94,7 +94,7 @@ public class SocketClientGUI extends JPanel
 		Container cp = this;
 
 		topPanel = new JPanel();
-		topPanel.setBounds(6, 6, 818, 82);
+		topPanel.setBounds(6, 6, 818, 103);
 		topPanel.setLayout(null);
 
 		connectPanel = new JPanel();
@@ -102,11 +102,11 @@ public class SocketClientGUI extends JPanel
 		connectPanel.setLayout(null);
 
 		ipLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		ipLabel.setBounds(3, 20, 84, 20);
+		ipLabel.setBounds(3, 20, 84, 27);
 		connectPanel.add(ipLabel);
 
 		portLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		portLabel.setBounds(41, 50, 46, 20);
+		portLabel.setBounds(41, 50, 46, 27);
 		connectPanel.add(portLabel);
 
 		ActionListener connectListener = new ActionListener()
@@ -117,11 +117,11 @@ public class SocketClientGUI extends JPanel
 			}
 		};
 
-		portField.setBounds(90, 50, 75, 20);
+		portField.setBounds(90, 50, 75, 27);
 		portField.addActionListener(connectListener);
 		connectPanel.add(portField);
 
-		connectButton.setBounds(228, 17, 115, 29);
+		connectButton.setBounds(228, 20, 115, 27);
 		connectButton.setMnemonic(KeyEvent.VK_N);
 		connectButton.setToolTipText("Start Connection");
 		connectButton.addActionListener(connectListener);
@@ -130,10 +130,9 @@ public class SocketClientGUI extends JPanel
 		Vector<String> ips = new Vector<String>();
 		ips = util.getIPAddresses();
 		ComboBoxModel<String> jComboBox2Model = new DefaultComboBoxModel<String>(ips);
-		comboBoxIP.setEditable(true);
 
 		comboBoxIP.setModel(jComboBox2Model);
-		comboBoxIP.setBounds(90, 18, 141, 27);
+		comboBoxIP.setBounds(90, 20, 141, 27);
 		connectPanel.add(comboBoxIP);
 
 		connectPanel.setBorder(BorderFactory.createTitledBorder(new EtchedBorder(), "Connect To"));
@@ -149,24 +148,17 @@ public class SocketClientGUI extends JPanel
 
 		JLabel lblEndOfLine = new JLabel("End of Line");
 		lblEndOfLine.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblEndOfLine.setBounds(576, 40, 79, 16);
+		lblEndOfLine.setBounds(576, 33, 79, 27);
 		topPanel.add(lblEndOfLine);
 		
 		JLabel lblStartOfLine = new JLabel("Start of Line");
 		lblStartOfLine.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblStartOfLine.setBounds(357, 40, 79, 16);
+		lblStartOfLine.setBounds(357, 33, 79, 27);
 		topPanel.add(lblStartOfLine);
-
-		comboBoxSendSuffix.setEditable(true);
-		comboBoxSendSuffix.setModel(new DefaultComboBoxModel<String>(new String[]
-		{ "", "<CR>", "<LF>", "<CR><LF>", "<STX>", "<ETX>", "<ESC>", "<ACK>", "<NAK>" }));
-		comboBoxSendSuffix.setBounds(446, 61, 124, 27);
-		comboBoxSendSuffix.setSelectedIndex(0);
-		topPanel.add(comboBoxSendSuffix);
 
 		JLabel lblAppendToMessage = new JLabel("Send Suffix");
 		lblAppendToMessage.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAppendToMessage.setBounds(357, 64, 79, 16);
+		lblAppendToMessage.setBounds(357, 61, 79, 27);
 		topPanel.add(lblAppendToMessage);
 		comboBoxSendPrefix.setEditable(true);
 
@@ -177,7 +169,7 @@ public class SocketClientGUI extends JPanel
 
 		JLabel lblSendPrefix = new JLabel("Send Prefix");
 		lblSendPrefix.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblSendPrefix.setBounds(357, 15, 79, 16);
+		lblSendPrefix.setBounds(357, 4, 79, 27);
 		topPanel.add(lblSendPrefix);
 
 		ActionListener sendListener = new ActionListener()
@@ -257,7 +249,7 @@ public class SocketClientGUI extends JPanel
 		};
 
 		centerPanel = new JPanel();
-		centerPanel.setBounds(0, 90, 980, 587);
+		centerPanel.setBounds(0, 102, 980, 583);
 		centerPanel.setLayout(null);
 
 		CompoundBorder cb = new CompoundBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10), connectedBorder);
@@ -272,6 +264,13 @@ public class SocketClientGUI extends JPanel
 		comboBoxStartofLine.setModel(new DefaultComboBoxModel<String>(new String[]
 		{ "", "<CR>", "<LF>", "<CR><LF>", "<STX>", "<ETX>", "<ESC>", "<ACK>", "<NAK>" }));
 		comboBoxStartofLine.setSelectedIndex(0);
+				comboBoxSendSuffix.setBounds(446, 62, 124, 27);
+				topPanel.add(comboBoxSendSuffix);
+		
+				comboBoxSendSuffix.setEditable(true);
+				comboBoxSendSuffix.setModel(new DefaultComboBoxModel<String>(new String[]
+				{ "", "<CR>", "<LF>", "<CR><LF>", "<STX>", "<ETX>", "<ESC>", "<ACK>", "<NAK>" }));
+				comboBoxSendSuffix.setSelectedIndex(0);
 		
 		cp.add(centerPanel);
 		messagesField.setFont(Util.textFont);
@@ -411,7 +410,7 @@ public class SocketClientGUI extends JPanel
 		lblLog.setBounds(500, 21, 441, 20);
 		
 		centerPanel.add(lblLog);
-		logoLabel.setBounds(867, 5, 104, 85);
+		logoLabel.setBounds(867, 7, 104, 85);
 		add(logoLabel);
 		logoLabel.setVerticalTextPosition(JLabel.BOTTOM);
 		logoLabel.setHorizontalTextPosition(JLabel.CENTER);
