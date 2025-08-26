@@ -26,7 +26,7 @@ public class SocketTest extends JFrame {
 
 	public static SocketClientGUI client;
 	public static SocketServerGUI server;
-	public static String version = "5.73";
+	public static String version = "5.74";
 	public static final JImageIconLoader imageIconloader = new JImageIconLoader();
 	public ImageIcon logo = imageIconloader.getImageIcon("logo.gif");
 	public ImageIcon ball = imageIconloader.getImageIcon("ball.gif");
@@ -63,7 +63,7 @@ public class SocketTest extends JFrame {
 
 		SocketTest st = new SocketTest();
 		st.setTitle("SocketTest v"+version);
-		st.setSize(1010, 750);
+		st.setSize(1030, 750);
 		
 		
 		GraphicsDevice gd = Util.getGraphicsDevice();

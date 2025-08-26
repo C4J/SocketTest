@@ -43,13 +43,14 @@ public class Util
 {
 
 	public static ImageIcon logo = SocketTest.imageIconloader.getImageIcon("logo.gif");
-	public static ImageIcon sendIcon = SocketTest.imageIconloader.getImageIcon("send.png");
-	public static ImageIcon clearIcon = SocketTest.imageIconloader.getImageIcon("clear.png");
-	public static ImageIcon loadIcon = SocketTest.imageIconloader.getImageIcon("load.gif");
-	public static ImageIcon saveIcon = SocketTest.imageIconloader.getImageIcon("save.gif");
-	public static ImageIcon exitIcon = SocketTest.imageIconloader.getImageIcon("exit.gif");
-	public static ImageIcon connectIcon = SocketTest.imageIconloader.getImageIcon("connect.gif");
-	public static ImageIcon disconnectIcon = SocketTest.imageIconloader.getImageIcon("disconnect.gif");
+	public static ImageIcon sendIcon = SocketTest.imageIconloader.getImageIcon("execute_24x24.png");
+	public static ImageIcon clearIcon = SocketTest.imageIconloader.getImageIcon("eraser_24x24.png");
+	public static ImageIcon loadIcon = SocketTest.imageIconloader.getImageIcon("open_file_24x24.png");
+	public static ImageIcon saveIcon = SocketTest.imageIconloader.getImageIcon("save_24x24.png");
+	public static ImageIcon exitIcon = SocketTest.imageIconloader.getImageIcon("exit_24x24.png");
+	public static ImageIcon connectIcon = SocketTest.imageIconloader.getImageIcon("disconnected.png");
+	public static ImageIcon disconnectIcon = SocketTest.imageIconloader.getImageIcon("connected.png");
+	public static ImageIcon breakIcon = SocketTest.imageIconloader.getImageIcon("break_connection_24x24.png");
 
 	public static String typeServer = "server";
 	public static String typeClient = "client";
