@@ -44,6 +44,7 @@ public class Util
 
 	public static ImageIcon logo = SocketTest.imageIconloader.getImageIcon("logo.gif");
 	public static ImageIcon sendIcon = SocketTest.imageIconloader.getImageIcon("execute_24x24.png");
+	public static ImageIcon clockIcon = SocketTest.imageIconloader.getImageIcon("clock_24x24.png");
 	public static ImageIcon clearIcon = SocketTest.imageIconloader.getImageIcon("eraser_24x24.png");
 	public static ImageIcon loadIcon = SocketTest.imageIconloader.getImageIcon("open_file_24x24.png");
 	public static ImageIcon saveIcon = SocketTest.imageIconloader.getImageIcon("save_24x24.png");

@@ -1,5 +1,6 @@
 package com.commander4j.gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -16,7 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -36,7 +37,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.commander4j.network.SocketClient;
 import com.commander4j.network.Util;
-import java.awt.Color;
 
 public class SocketClientGUI extends JPanel
 {
@@ -54,11 +54,12 @@ public class SocketClientGUI extends JPanel
 	private JLabel logoLabel = new JLabel(Util.logo, JLabel.CENTER);
 	private JTextField portField = new JTextField("8000", 10);
 
-	private JButton connectButton = new JButton(Util.connectIcon);
+	private JToggleButton connectButton = new JToggleButton(Util.connectIcon);
 	private JButton loadInputButton = new JButton(Util.loadIcon);
 	private JButton saveInputButton = new JButton(Util.saveIcon);
 	private JButton clearLogButton = new JButton(Util.clearIcon);
 	private JButton saveLogButton = new JButton(Util.saveIcon);
+	public JToggleButton timestampButton = new JToggleButton(Util.clockIcon);
 	private JButton sendInputButton = new JButton(Util.sendIcon);
 	private JButton clearInputButton = new JButton(Util.clearIcon);
 
@@ -72,7 +73,6 @@ public class SocketClientGUI extends JPanel
 
 	public JTextPane textPane = new JTextPane();
 
-	public JCheckBox chckbxTimestamp = new JCheckBox("Timestamp");
 
 	private JComboBox<String> comboBoxStartofLine = new JComboBox<String>();
 	private JComboBox<String> comboBoxEndofLine = new JComboBox<String>();
@@ -106,18 +106,18 @@ public class SocketClientGUI extends JPanel
 		connectPanel.add(ipLabel);
 
 		portLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		portLabel.setBounds(41, 50, 46, 27);
+		portLabel.setBounds(41, 55, 46, 27);
 		connectPanel.add(portLabel);
 
 		ActionListener connectListener = new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				connect();
+				connectButton.setSelected(connect());
 			}
 		};
 
-		portField.setBounds(90, 50, 75, 27);
+		portField.setBounds(90, 55, 75, 27);
 		portField.addActionListener(connectListener);
 		connectPanel.add(portField);
 
@@ -178,7 +178,7 @@ public class SocketClientGUI extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 
-				boolean timestampReqd = chckbxTimestamp.isSelected();
+				boolean timestampReqd = timestampButton.isSelected();
 				String logData = "";
 				
 				String msg = messagesField.getText();
@@ -316,8 +316,6 @@ public class SocketClientGUI extends JPanel
 
 		scrollPane.setViewportView(textPane);
 
-		chckbxTimestamp.setBounds(684, 535, 128, 23);
-		centerPanel.add(chckbxTimestamp);
 		loadInputButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -371,7 +369,7 @@ public class SocketClientGUI extends JPanel
 		});
 		clearLogButton.setToolTipText("Clear conversation with client");
 		clearLogButton.setMnemonic(KeyEvent.VK_R);
-		clearLogButton.setBounds(973, 40, 32, 32);
+		clearLogButton.setBounds(971, 40, 32, 32);
 
 		centerPanel.add(clearLogButton);
 		saveLogButton.addActionListener(new ActionListener()
@@ -392,9 +390,13 @@ public class SocketClientGUI extends JPanel
 		});
 		saveLogButton.setToolTipText("Save to file");
 		saveLogButton.setMnemonic(KeyEvent.VK_V);
-		saveLogButton.setBounds(973, 73, 32, 32);
-
+		saveLogButton.setBounds(971, 73, 32, 32);
 		centerPanel.add(saveLogButton);
+		
+		timestampButton.setBounds(971, 105, 32, 32);
+		timestampButton.setToolTipText("Timestamp On/Off");
+		centerPanel.add(timestampButton);
+		
 		lblInput.setHorizontalAlignment(SwingConstants.LEFT);
 		lblInput.setForeground(Color.BLUE);
 		lblInput.setBounds(26, 21, 441, 20);
@@ -405,7 +407,7 @@ public class SocketClientGUI extends JPanel
 		lblLog.setBounds(520, 21, 441, 20);
 		
 		centerPanel.add(lblLog);
-		logoLabel.setBounds(867, 7, 104, 85);
+		logoLabel.setBounds(867, 15, 104, 85);
 		add(logoLabel);
 		logoLabel.setVerticalTextPosition(JLabel.BOTTOM);
 		logoLabel.setHorizontalTextPosition(JLabel.CENTER);
@@ -416,12 +418,13 @@ public class SocketClientGUI extends JPanel
 
 	}
 
-	private void connect()
+	private boolean connect()
 	{
+		boolean result = false;
 		if (socket != null)
 		{
 			disconnect();
-			return;
+			return result;
 		}
 		
 		String ip = comboBoxIP.getSelectedItem().toString();
@@ -429,7 +432,7 @@ public class SocketClientGUI extends JPanel
 		if (ip == null || ip.equals(""))
 		{
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "No IP Address. Please enter IP Address", "Error connecting", JOptionPane.ERROR_MESSAGE);
-			return;
+			return result;
 		}
 		
 		if (port == null || port.equals(""))
@@ -437,7 +440,7 @@ public class SocketClientGUI extends JPanel
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "No Port number. Please enter Port number", "Error connecting", JOptionPane.ERROR_MESSAGE);
 			portField.requestFocus();
 			portField.selectAll();
-			return;
+			return result;
 		}
 		
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -446,7 +449,7 @@ public class SocketClientGUI extends JPanel
 		{
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "Bad IP Address", "Error connecting", JOptionPane.ERROR_MESSAGE);
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			return;
+			return result;
 		}
 		
 		int portNo = 0;
@@ -460,7 +463,7 @@ public class SocketClientGUI extends JPanel
 			portField.requestFocus();
 			portField.selectAll();
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			return;
+			return result;
 		}
 		
 		try
@@ -480,7 +483,7 @@ public class SocketClientGUI extends JPanel
 		{
 			error(e.getMessage(), "Opening connection");
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			return;
+			return result;
 		}
 		
 		changeBorder(" " + socket.getInetAddress().getHostName() + " [" + socket.getInetAddress().getHostAddress() + "] ");
@@ -488,6 +491,10 @@ public class SocketClientGUI extends JPanel
 
 		socketClient = SocketClient.handle(this, socket);
 		messagesField.requestFocus();
+		
+		result = true;
+		
+		return result;
 	}
 
 	public synchronized void disconnect()

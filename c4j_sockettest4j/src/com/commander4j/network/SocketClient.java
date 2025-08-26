@@ -88,7 +88,7 @@ public class SocketClient extends Thread
 					break;
 				}
 
-				util.log(util.decodeControlChars(got),parent.textPane,parent.chckbxTimestamp.isSelected(),Util.typeServer);
+				util.log(util.decodeControlChars(got),parent.textPane,parent.timestampButton.isSelected(),Util.typeServer);
 				
                 if (SocketTest.server.chckbxProxy.isSelected())
                 {

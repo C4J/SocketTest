@@ -31,7 +31,7 @@ public class SocketServer extends Thread
 			}
 			catch (Exception e)
 			{
-				util.log("Error closing client. " + e.getMessage() + "\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeServer);
+				util.log("Error closing client. " + e.getMessage() + "\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeServer);
 			}
 		}
 		disconnected = cr;
@@ -50,7 +50,7 @@ public class SocketServer extends Thread
 			}
 			catch (Exception e)
 			{
-				util.log("Error closing server. " + e.getMessage() + "\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeStatus);
+				util.log("Error closing server. " + e.getMessage() + "\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeStatus);
 			}
 		}
 	}
@@ -106,7 +106,7 @@ public class SocketServer extends Thread
 			{
 				if (!stop)
 				{
-					util.log("Error accepting connection. " + e.getMessage() + "\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeStatus);
+					util.log("Error accepting connection. " + e.getMessage() + "\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeStatus);
 					stop = true;
 				}
 				continue;
@@ -122,7 +122,7 @@ public class SocketServer extends Thread
 				}
 				catch (Exception e)
 				{
-					util.log("Error closing client socket : " + e.getMessage() + "\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeStatus);
+					util.log("Error closing client socket : " + e.getMessage() + "\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeStatus);
 				}
 				socket = null;
 				parent.setClientSocket(socket);
@@ -140,12 +140,12 @@ public class SocketServer extends Thread
 			is = socket.getInputStream();
 			in = new BufferedInputStream(is);
 
-			util.log("Client connected " + "[" + socket.getInetAddress().getHostAddress() + "].\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeStatus);
+			util.log("Client connected " + "[" + socket.getInetAddress().getHostAddress() + "].\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeStatus);
 
 		}
 		catch (IOException e)
 		{
-			util.log("Couldn't open input stream on Client" + e.getMessage() + "\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeStatus);
+			util.log("Couldn't open input stream on Client" + e.getMessage() + "\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeStatus);
 
 			setDisconnected(true);
 
@@ -167,17 +167,17 @@ public class SocketServer extends Thread
 				{
 					parent.error(e.getMessage(), "Lost Client connection");
 
-					util.log("Server lost Client connection.\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeStatus);
+					util.log("Server lost Client connection.\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeStatus);
 				}
 				else
-					util.log("Server closed Client connection.\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeStatus);
+					util.log("Server closed Client connection.\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeStatus);
 				break;
 			}
 
 			if (rec != null)
 			{
 
-				util.log(util.decodeControlChars(rec), parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeClient);
+				util.log(util.decodeControlChars(rec), parent.textPane, parent.timestampButton.isSelected(), Util.typeClient);
 
 				if (SocketTest.server.chckbxProxy.isSelected())
 				{
@@ -191,7 +191,7 @@ public class SocketServer extends Thread
 			else
 			{
 				setDisconnected(true);
-				util.log("Client closed connection.\n", parent.textPane, parent.chckbxTimestamp.isSelected(), Util.typeStatus);
+				util.log("Client closed connection.\n", parent.textPane, parent.timestampButton.isSelected(), Util.typeStatus);
 				break;
 			}
 		} // end of while
