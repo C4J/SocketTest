@@ -90,7 +90,7 @@ public class SocketClient extends Thread
 
 				util.log(util.decodeControlChars(got),parent.textPane,parent.timestampButton.isSelected(),Util.typeServer);
 				
-                if (SocketTest.server.chckbxProxy.isSelected())
+                if (SocketTest.server.proxyButton.isSelected())
                 {
                 	if (disconnected == false)
                 	{

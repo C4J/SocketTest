@@ -179,7 +179,7 @@ public class SocketServer extends Thread
 
 				util.log(util.decodeControlChars(rec), parent.textPane, parent.timestampButton.isSelected(), Util.typeClient);
 
-				if (SocketTest.server.chckbxProxy.isSelected())
+				if (SocketTest.server.proxyButton.isSelected())
 				{
                 	if (disconnected == false)
                 	{

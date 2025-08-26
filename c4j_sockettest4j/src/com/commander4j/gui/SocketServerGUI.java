@@ -1,5 +1,6 @@
 package com.commander4j.gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -39,7 +39,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.commander4j.network.SocketServer;
 import com.commander4j.network.Util;
-import java.awt.Color;
 
 public class SocketServerGUI extends JPanel
 {
@@ -65,6 +64,7 @@ public class SocketServerGUI extends JPanel
 	private JButton loadInputButton = new JButton(Util.loadIcon);
 	private JButton saveInputButton = new JButton(Util.saveIcon);
 	public JToggleButton timestampButton = new JToggleButton(Util.clockIcon);
+	public JToggleButton proxyButton = new JToggleButton(Util.proxyIcon);
 	private JButton disconnectButton = new JButton(Util.breakIcon);
 	private JButton btnClose = new JButton(Util.exitIcon);
 	
@@ -78,8 +78,6 @@ public class SocketServerGUI extends JPanel
 	private PrintWriter out;
 
 	public JTextPane textPane = new JTextPane();
-	
-	public JCheckBox chckbxProxy = new JCheckBox("Proxy");
 	
 	private JComboBox<String> comboBoxStartofLine = new JComboBox<String>();
 	private JComboBox<String> comboBoxEndofLine = new JComboBox<String>();
@@ -170,6 +168,8 @@ public class SocketServerGUI extends JPanel
 		comboBoxIP.setModel(jComboBox2Model);
 		comboBoxIP.setBounds(90, 20, 141, 27);
 		connectPanel.add(comboBoxIP);
+		proxyButton.setBounds(274, 18, 32, 32);
+		connectPanel.add(proxyButton);
 
 		topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
 
@@ -448,8 +448,6 @@ public class SocketServerGUI extends JPanel
 		lblEndOfLine.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblEndOfLine.setBounds(576, 33, 79, 27);
 		topPanel.add(lblEndOfLine);
-		chckbxProxy.setBounds(667, 62, 67, 27);
-		topPanel.add(chckbxProxy);
 		
 		JLabel lblStartOfLine = new JLabel("Start of Line");
 		lblStartOfLine.setHorizontalAlignment(SwingConstants.TRAILING);
