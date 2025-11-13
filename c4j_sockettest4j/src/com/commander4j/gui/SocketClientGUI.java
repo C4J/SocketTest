@@ -52,7 +52,7 @@ public class SocketClientGUI extends JPanel
 	private JLabel ipLabel = new JLabel("IP Address");
 	private JLabel portLabel = new JLabel("Port");
 	private JLabel logoLabel = new JLabel(Util.logo, JLabel.CENTER);
-	private JTextField portField = new JTextField("8000", 10);
+	private JTextField portField = new JTextField("9100", 10);
 
 	private JToggleButton connectButton = new JToggleButton(Util.connectIcon);
 	private JButton loadInputButton = new JButton(Util.loadIcon);
@@ -72,7 +72,6 @@ public class SocketClientGUI extends JPanel
 	private SocketClient socketClient;
 
 	public JTextPane textPane = new JTextPane();
-
 
 	private JComboBox<String> comboBoxStartofLine = new JComboBox<String>();
 	private JComboBox<String> comboBoxEndofLine = new JComboBox<String>();
@@ -113,7 +112,10 @@ public class SocketClientGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				connectButton.setSelected(connect());
+				boolean connected = connect();
+				connectButton.setSelected(connected);
+				portField.setEnabled(!connected);
+				comboBoxIP.setEnabled(!connected);
 			}
 		};
 
@@ -151,7 +153,7 @@ public class SocketClientGUI extends JPanel
 		lblEndOfLine.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblEndOfLine.setBounds(576, 33, 79, 27);
 		topPanel.add(lblEndOfLine);
-		
+
 		JLabel lblStartOfLine = new JLabel("Start of Line");
 		lblStartOfLine.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblStartOfLine.setBounds(357, 33, 79, 27);
@@ -180,7 +182,7 @@ public class SocketClientGUI extends JPanel
 
 				boolean timestampReqd = timestampButton.isSelected();
 				String logData = "";
-				
+
 				String msg = messagesField.getText();
 				msg = util.upperCaseTokens(msg);
 
@@ -188,52 +190,52 @@ public class SocketClientGUI extends JPanel
 
 				if (lines.length > 0)
 				{
-					
-					//Prefix
-					String prefixMessage =  comboBoxSendPrefix.getItemAt(comboBoxSendPrefix.getSelectedIndex()).toString();
-					
+
+					// Prefix
+					String prefixMessage = comboBoxSendPrefix.getItemAt(comboBoxSendPrefix.getSelectedIndex()).toString();
+
 					logData = prefixMessage;
-					
+
 					transmit(logData);
-					
-					util.log( logData, textPane, timestampReqd, Util.typeClient);
-					
-					if (logData.equals("")==false)
+
+					util.log(logData, textPane, timestampReqd, Util.typeClient);
+
+					if (logData.equals("") == false)
 					{
-						timestampReqd=false;
+						timestampReqd = false;
 					}
 
 					for (int x = 0; x < lines.length; x++)
 					{
 
-						String prefixLine=comboBoxStartofLine.getItemAt(comboBoxStartofLine.getSelectedIndex()).toString();
-						String suffixLine=comboBoxEndofLine.getItemAt(comboBoxEndofLine.getSelectedIndex()).toString();
-						
-						logData = prefixLine+lines[x]+suffixLine;
-						
+						String prefixLine = comboBoxStartofLine.getItemAt(comboBoxStartofLine.getSelectedIndex()).toString();
+						String suffixLine = comboBoxEndofLine.getItemAt(comboBoxEndofLine.getSelectedIndex()).toString();
+
+						logData = prefixLine + lines[x] + suffixLine;
+
 						transmit(logData);
 
-						util.log( logData, textPane, timestampReqd, Util.typeClient);
-						
-						if (logData.equals("")==false)
+						util.log(logData, textPane, timestampReqd, Util.typeClient);
+
+						if (logData.equals("") == false)
 						{
-							timestampReqd=false;
+							timestampReqd = false;
 						}
-						
+
 					}
-					
-					//Suffix
-					String suffixMessage =  comboBoxSendSuffix.getItemAt(comboBoxSendSuffix.getSelectedIndex()).toString();
-					
+
+					// Suffix
+					String suffixMessage = comboBoxSendSuffix.getItemAt(comboBoxSendSuffix.getSelectedIndex()).toString();
+
 					logData = suffixMessage;
-					
+
 					transmit(logData);
-					
-					util.log( logData, textPane, timestampReqd, Util.typeClient);
-					
-					if (logData.equals("")==false)
+
+					util.log(logData, textPane, timestampReqd, Util.typeClient);
+
+					if (logData.equals("") == false)
 					{
-						timestampReqd=false;
+						timestampReqd = false;
 					}
 
 				}
@@ -250,36 +252,35 @@ public class SocketClientGUI extends JPanel
 		};
 
 		centerPanel = new JPanel();
-		centerPanel.setBounds(0, 102, 1020, 583);
+		centerPanel.setBounds(0, 102, 1020, 550);
 		centerPanel.setLayout(null);
 
 		CompoundBorder cb = new CompoundBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10), connectedBorder);
 		centerPanel.setBorder(cb);
 
 		cp.add(topPanel);
-		
+
 		comboBoxStartofLine.setBounds(446, 33, 124, 27);
 		topPanel.add(comboBoxStartofLine);
-		
+
 		comboBoxStartofLine.setEditable(true);
 		comboBoxStartofLine.setModel(new DefaultComboBoxModel<String>(new String[]
 		{ "", "<CR>", "<LF>", "<CR><LF>", "<STX>", "<ETX>", "<ESC>", "<ACK>", "<NAK>" }));
 		comboBoxStartofLine.setSelectedIndex(0);
-				comboBoxSendSuffix.setBounds(446, 62, 124, 27);
-				topPanel.add(comboBoxSendSuffix);
-		
-				comboBoxSendSuffix.setEditable(true);
-				comboBoxSendSuffix.setModel(new DefaultComboBoxModel<String>(new String[]
-				{ "", "<CR>", "<LF>", "<CR><LF>", "<STX>", "<ETX>", "<ESC>", "<ACK>", "<NAK>" }));
-				comboBoxSendSuffix.setSelectedIndex(0);
-		
+		comboBoxSendSuffix.setBounds(446, 62, 124, 27);
+		topPanel.add(comboBoxSendSuffix);
+
+		comboBoxSendSuffix.setEditable(true);
+		comboBoxSendSuffix.setModel(new DefaultComboBoxModel<String>(new String[]
+		{ "", "<CR>", "<LF>", "<CR><LF>", "<STX>", "<ETX>", "<ESC>", "<ACK>", "<NAK>" }));
+		comboBoxSendSuffix.setSelectedIndex(0);
+
 		cp.add(centerPanel);
 		messagesField.setFont(Util.textFont);
 
 		JScrollPane jsp = new JScrollPane(messagesField);
 		jsp.setBounds(26, 42, 450, 483);
 		centerPanel.add(jsp);
-
 
 		sendInputButton.setBounds(476, 40, 32, 32);
 		sendInputButton.setMnemonic(KeyEvent.VK_E);
@@ -290,22 +291,6 @@ public class SocketClientGUI extends JPanel
 
 		clearInputButton.setToolTipText("Clear conversation with host");
 		clearInputButton.setMnemonic(KeyEvent.VK_C);
-
-		JButton btnClose = new JButton(Util.exitIcon);
-		btnClose.setText("Exit");
-		btnClose.setBounds(450, 532, 95, 32);
-		centerPanel.add(btnClose);
-		btnClose.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				disconnect();
-				System.exit(0);
-
-			}
-		});
-		btnClose.setToolTipText("Clear conversation with host");
-		btnClose.setMnemonic(KeyEvent.VK_X);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(520, 42, 450, 483);
@@ -392,20 +377,20 @@ public class SocketClientGUI extends JPanel
 		saveLogButton.setMnemonic(KeyEvent.VK_V);
 		saveLogButton.setBounds(971, 73, 32, 32);
 		centerPanel.add(saveLogButton);
-		
+
 		timestampButton.setBounds(971, 105, 32, 32);
 		timestampButton.setToolTipText("Timestamp On/Off");
 		centerPanel.add(timestampButton);
-		
+
 		lblInput.setHorizontalAlignment(SwingConstants.LEFT);
 		lblInput.setForeground(Color.BLUE);
 		lblInput.setBounds(26, 21, 441, 20);
-		
+
 		centerPanel.add(lblInput);
 		lblLog.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLog.setForeground(Color.BLUE);
 		lblLog.setBounds(520, 21, 441, 20);
-		
+
 		centerPanel.add(lblLog);
 		logoLabel.setBounds(867, 15, 104, 85);
 		add(logoLabel);
@@ -426,7 +411,7 @@ public class SocketClientGUI extends JPanel
 			disconnect();
 			return result;
 		}
-		
+
 		String ip = comboBoxIP.getSelectedItem().toString();
 		String port = portField.getText();
 		if (ip == null || ip.equals(""))
@@ -434,7 +419,7 @@ public class SocketClientGUI extends JPanel
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "No IP Address. Please enter IP Address", "Error connecting", JOptionPane.ERROR_MESSAGE);
 			return result;
 		}
-		
+
 		if (port == null || port.equals(""))
 		{
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "No Port number. Please enter Port number", "Error connecting", JOptionPane.ERROR_MESSAGE);
@@ -442,16 +427,16 @@ public class SocketClientGUI extends JPanel
 			portField.selectAll();
 			return result;
 		}
-		
+
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-		
+
 		if (!util.checkHost(ip))
 		{
 			JOptionPane.showMessageDialog(SocketClientGUI.this, "Bad IP Address", "Error connecting", JOptionPane.ERROR_MESSAGE);
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return result;
 		}
-		
+
 		int portNo = 0;
 		try
 		{
@@ -465,7 +450,7 @@ public class SocketClientGUI extends JPanel
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return result;
 		}
-		
+
 		try
 		{
 
@@ -485,15 +470,15 @@ public class SocketClientGUI extends JPanel
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return result;
 		}
-		
+
 		changeBorder(" " + socket.getInetAddress().getHostName() + " [" + socket.getInetAddress().getHostAddress() + "] ");
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
 		socketClient = SocketClient.handle(this, socket);
 		messagesField.requestFocus();
-		
+
 		result = true;
-		
+
 		return result;
 	}
 

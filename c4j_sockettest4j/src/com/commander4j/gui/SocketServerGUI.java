@@ -56,7 +56,7 @@ public class SocketServerGUI extends JPanel
 	private JLabel clientLabel = new JLabel("Client");
 	private JLabel logoLabel = new JLabel(Util.logo, JLabel.CENTER);
 	
-	private JTextField portField = new JTextField("8000", 10);
+	private JTextField portField = new JTextField("9100", 10);
 
 	private JToggleButton connectButton = new JToggleButton(Util.connectIcon);
 	private JButton sendInputButton = new JButton(Util.sendIcon);
@@ -66,7 +66,6 @@ public class SocketServerGUI extends JPanel
 	public JToggleButton timestampButton = new JToggleButton(Util.clockIcon);
 	public JToggleButton proxyButton = new JToggleButton(Util.proxyIcon);
 	private JButton disconnectButton = new JButton(Util.breakIcon);
-	private JButton btnClose = new JButton(Util.exitIcon);
 	
 	private Border connectedBorder = BorderFactory.createTitledBorder(new EtchedBorder(), "Connected Client : < NONE >");
 	
@@ -128,7 +127,10 @@ public class SocketServerGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				connectButton.setSelected(connect());
+				boolean connected = connect();
+				connectButton.setSelected(connected);
+				portField.setEnabled(!connected);
+				comboBoxIP.setEnabled(!connected);
 			}
 		};
 
@@ -248,7 +250,7 @@ public class SocketServerGUI extends JPanel
 		};
 
 		centerPanel = new JPanel();
-		centerPanel.setBounds(0, 102, 1020, 583);
+		centerPanel.setBounds(0, 102, 1020, 550);
 		centerPanel.setLayout(null);
 
 		CompoundBorder cb = new CompoundBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10), connectedBorder);
@@ -321,21 +323,6 @@ public class SocketServerGUI extends JPanel
 		saveInputButton.setMnemonic(KeyEvent.VK_S);
 
 		centerPanel.add(saveInputButton);
-
-		btnClose.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				disconnect();
-				System.exit(0);
-			}
-		});
-		btnClose.setToolTipText("Close");
-		btnClose.setText("Exit");
-		btnClose.setMnemonic(KeyEvent.VK_X);
-		btnClose.setBounds(450, 532, 95, 32);
-
-		centerPanel.add(btnClose);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(520, 42, 450, 483);
@@ -473,8 +460,6 @@ public class SocketServerGUI extends JPanel
 		if (port == null || port.equals(""))
 		{
 			JOptionPane.showMessageDialog(SocketServerGUI.this, "No Port number. Please enter Port number", "Error connecting", JOptionPane.ERROR_MESSAGE);
-			portField.requestFocus();
-			portField.selectAll();
 			return result;
 		}
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -492,8 +477,6 @@ public class SocketServerGUI extends JPanel
 		catch (Exception e)
 		{
 			JOptionPane.showMessageDialog(SocketServerGUI.this, "Bad Port number. Please enter Port number", "Error connecting", JOptionPane.ERROR_MESSAGE);
-			portField.requestFocus();
-			portField.selectAll();
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return result;
 		}
@@ -505,8 +488,6 @@ public class SocketServerGUI extends JPanel
 			else
 				bindAddr = null;
 			server = new ServerSocket(portNo, 1, bindAddr);
-
-			portField.setEditable(false);
 
 			connectButton.setToolTipText("Close");
 			connectButton.setIcon(Util.disconnectIcon);
@@ -554,7 +535,8 @@ public class SocketServerGUI extends JPanel
 		}
 		server = null;
 
-		portField.setEditable(true);
+		portField.setEnabled(true);
+		comboBoxIP.setEnabled(true);
 		connectButton.setToolTipText("Open");
 		connectButton.setIcon(Util.connectIcon);
 
