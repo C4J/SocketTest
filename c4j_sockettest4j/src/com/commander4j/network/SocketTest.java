@@ -26,14 +26,14 @@ import java.awt.event.ActionEvent;
 public class SocketTest extends JFrame
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private JTabbedPane tabbedPane;
 	public static SocketClientGUI client;
 	public static SocketServerGUI server;
-	public static String version = "5.76";
+	public static String version = "5.80";
 	public static final JImageIconLoader imageIconloader = new JImageIconLoader();
 	public ImageIcon logo = imageIconloader.getImageIcon("logo.gif");
 	public ImageIcon ball = imageIconloader.getImageIcon("ball.gif");
@@ -42,9 +42,9 @@ public class SocketTest extends JFrame
 	/** Creates a new instance of SocketTest */
 	public SocketTest()
 	{
-		
-		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE ); 
-		
+
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE );
+
 		setResizable(false);
 
 		addWindowListener(new WindowListener());
@@ -62,7 +62,7 @@ public class SocketTest extends JFrame
 
 		tabbedPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		cp.add(tabbedPane);
-		
+
 		btnNewButton = new JButton("Close");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,9 +80,9 @@ public class SocketTest extends JFrame
 	public boolean confirmExit()
 	{
 		boolean result = false;
-		
+
 		int question = JOptionPane.showConfirmDialog(SocketTest.this, "Exit application ?", "Confirm", JOptionPane.YES_NO_OPTION, 0, Util.exitIcon);
-		
+
 		if (question == 0)
 		{
 			result = true;
