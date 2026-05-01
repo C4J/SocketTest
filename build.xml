@@ -6,8 +6,8 @@
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="b7SocketTest">
     <property environment="env"/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="21"/>
-    <property name="source" value="21"/>
+    <property name="target" value="25"/>
+    <property name="source" value="25"/>
     <path id="b7SocketTest.classpath">
         <pathelement location="bin"/>
         <fileset dir="lib">
