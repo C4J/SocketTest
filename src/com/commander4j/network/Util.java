@@ -37,7 +37,8 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang3.Strings;
 
 public class Util
 {
@@ -61,13 +62,13 @@ public class Util
 
 	public static Color client_Color_FG = Color.green;
 	public static Color client_Color_BG = Color.black;
-	
+
 	public static Color server_Color_FG = Color.white;
 	public static Color server_Color_BG = Color.black;
-	
+
 	public static Color status_Color_FG = Color.yellow;
 	public static Color status_Color_BG = Color.black;
-	
+
 	public static Color time_Color_FG = Color.black;
 	public static Color time_Color_BG = Color.white;
 
@@ -101,7 +102,7 @@ public class Util
 		aset_timestamp = sc_timestamp.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 		aset_timestamp = sc_timestamp.addAttribute(aset_timestamp, StyleConstants.Foreground, Util.time_Color_FG);
 		aset_timestamp = sc_timestamp.addAttribute(aset_timestamp, StyleConstants.Background, Util.time_Color_BG);
-		
+
 		aset_log = sc_timestamp.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 		aset_log = sc_timestamp.addAttribute(aset_log, StyleConstants.Foreground, Util.log_Color_FG);
 		aset_log = sc_timestamp.addAttribute(aset_log, StyleConstants.Background, Util.log_Color_BG);
@@ -170,7 +171,7 @@ public class Util
 
 		return result;
 	}
-	
+
 	public  int getOSWidthAdjustment()
 	{
 		int result = 0;
@@ -192,7 +193,7 @@ public class Util
 		}
 		return result;
 	}
-	
+
 	public  int getOSHeightAdjustment()
 	{
 		int result = 0;
@@ -214,39 +215,39 @@ public class Util
 		}
 		return result;
 	}
-	
+
 	public  boolean isWindows() {
-		 
+
 		String os = System.getProperty("os.name").toLowerCase();
 		// windows
 		return (os.indexOf("win") >= 0);
- 
+
 	}
- 
+
 	public  boolean isMac() {
- 
+
 		String os = System.getProperty("os.name").toLowerCase();
 		// Mac
 		return (os.indexOf("mac") >= 0);
- 
+
 	}
- 
+
 	public  boolean isUnix() {
- 
+
 		String os = System.getProperty("os.name").toLowerCase();
 		// linux or unix
 		return (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0);
- 
+
 	}
- 
+
 	public  boolean isSolaris() {
- 
+
 		String os = System.getProperty("os.name").toLowerCase();
 		// Solaris
 		return (os.indexOf("sunos") >= 0);
- 
+
 	}
-	
+
 	public void setLookandFeel()
 	{
 
@@ -280,7 +281,7 @@ public class Util
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setLookAndFeel(String LAF)
 	{
 		try
@@ -299,14 +300,19 @@ public class Util
 
 		}
 	}
-	
+
 	public String upperCaseTokens(String input)
 	{
 		String result = input;
 
 		for (int x = 0; x < controlCodes.getControlCodes().size(); x++)
 		{
-			result = StringUtils.replaceIgnoreCase(result, controlCodes.getControlCodes().get(x).getToken().toLowerCase(), controlCodes.getControlCodes().get(x).getToken().toUpperCase());
+			result = Strings.CI.replace(
+				    result,
+				    controlCodes.getControlCodes().get(x).getToken().toLowerCase(),
+				    controlCodes.getControlCodes().get(x).getToken().toUpperCase()
+				);
+			//result = StringUtils.replaceIgnoreCase(result, controlCodes.getControlCodes().get(x).getToken().toLowerCase(), controlCodes.getControlCodes().get(x).getToken().toUpperCase());
 		}
 
 		return result;
@@ -473,7 +479,7 @@ public class Util
 					{
 						textPane.setCharacterAttributes(aset_status, false);
 					}
-					
+
 					textPane.setCharacterAttributes(aset_log, false);
 					write_to_pane(textPane, NEW_LINE);
 				}
