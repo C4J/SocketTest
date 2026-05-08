@@ -18,9 +18,6 @@ import javax.swing.WindowConstants;
 import com.commander4j.gui.JImageIconLoader;
 import com.commander4j.gui.SocketClientGUI;
 import com.commander4j.gui.SocketServerGUI;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 public class SocketTest extends JFrame
@@ -33,11 +30,10 @@ public class SocketTest extends JFrame
 	private JTabbedPane tabbedPane;
 	public static SocketClientGUI client;
 	public static SocketServerGUI server;
-	public static String version = "6.01";
+	public static String version = "6.02";
 	public static final JImageIconLoader imageIconloader = new JImageIconLoader();
 	public ImageIcon logo = imageIconloader.getImageIcon("logo.gif");
 	public ImageIcon ball = imageIconloader.getImageIcon("ball.gif");
-	private JButton btnNewButton;
 
 	/** Creates a new instance of SocketTest */
 	public SocketTest()
@@ -62,19 +58,6 @@ public class SocketTest extends JFrame
 
 		tabbedPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		cp.add(tabbedPane);
-
-		btnNewButton = new JButton("Close");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (confirmExit())
-				{
-					System.exit(0);
-				}
-			}
-		});
-		btnNewButton.setIcon(Util.exitIcon);
-		btnNewButton.setBounds(447, 680, 117, 32);
-		getContentPane().add(btnNewButton);
 	}
 
 	public boolean confirmExit()
@@ -118,7 +101,7 @@ public class SocketTest extends JFrame
 
 		SocketTest st = new SocketTest();
 		st.setTitle("SocketTest v" + version);
-		st.setSize(1030, 750);
+		st.setSize(1035, 730);
 
 		GraphicsDevice gd = util.getGraphicsDevice();
 

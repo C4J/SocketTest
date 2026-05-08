@@ -37,8 +37,12 @@ import javax.swing.border.EtchedBorder;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.commander4j.dialog.JDialogAbout;
+import com.commander4j.dialog.JDialogLicenses;
 import com.commander4j.network.SocketServer;
+import com.commander4j.network.SocketTest;
 import com.commander4j.network.Util;
+import com.commander4j.util.JHelp;
 
 public class SocketServerGUI extends JPanel
 {
@@ -370,7 +374,55 @@ public class SocketServerGUI extends JPanel
 		timestampButton.setBounds(971, 105, 32, 32);
 		timestampButton.setToolTipText("Timestamp On/Off");
 		centerPanel.add(timestampButton);
-		
+
+		JButton helpButton = new JButton(Util.helpIcon);
+		helpButton.setBounds(971, 138, 32, 32);
+		helpButton.setToolTipText("Help");
+		centerPanel.add(helpButton);
+		final JHelp help = new JHelp();
+		help.enableHelpOnButton(helpButton, "https://wiki.commander4j.com/index.php?title=SocketTest");
+
+		JButton aboutButton = new JButton(Util.aboutIcon);
+		aboutButton.setBounds(971, 171, 32, 32);
+		aboutButton.setToolTipText("About");
+		aboutButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				JDialogAbout about = new JDialogAbout();
+				about.setVisible(true);
+			}
+		});
+		centerPanel.add(aboutButton);
+
+		JButton licenseButton = new JButton(Util.licenseIcon);
+		licenseButton.setBounds(971, 204, 32, 32);
+		licenseButton.setToolTipText("Licences");
+		licenseButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				JDialogLicenses dl = new JDialogLicenses(parent);
+				dl.setVisible(true);
+			}
+		});
+		centerPanel.add(licenseButton);
+
+		JButton closeButton = new JButton(Util.exitIcon);
+		closeButton.setBounds(971, 240, 32, 32);
+		closeButton.setToolTipText("Close");
+		closeButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (((SocketTest) parent).confirmExit())
+				{
+					System.exit(0);
+				}
+			}
+		});
+		centerPanel.add(closeButton);
+
 		lblInput.setForeground(Color.BLUE);
 		lblInput.setHorizontalAlignment(SwingConstants.LEFT);
 		lblInput.setBounds(26, 21, 441, 20);

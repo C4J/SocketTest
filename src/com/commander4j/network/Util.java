@@ -54,6 +54,10 @@ public class Util
 	public static ImageIcon connectIcon = SocketTest.imageIconloader.getImageIcon("disconnected.png");
 	public static ImageIcon disconnectIcon = SocketTest.imageIconloader.getImageIcon("connected.png");
 	public static ImageIcon breakIcon = SocketTest.imageIconloader.getImageIcon("break_connection_24x24.png");
+	public static ImageIcon okIcon = SocketTest.imageIconloader.getImageIcon("ok_24x24.png");
+	public static ImageIcon helpIcon = SocketTest.imageIconloader.getImageIcon("help_24x24.png");
+	public static ImageIcon aboutIcon = SocketTest.imageIconloader.getImageIcon("about_24x24.png");
+	public static ImageIcon licenseIcon = SocketTest.imageIconloader.getImageIcon("open_source_24x24.png");
 
 	public static String typeServer = "server";
 	public static String typeClient = "client";
