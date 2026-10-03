@@ -30,7 +30,7 @@ public class SocketTest extends JFrame
 	private JTabbedPane tabbedPane;
 	public static SocketClientGUI client;
 	public static SocketServerGUI server;
-	public static String version = "6.02";
+	public static String version = "6.03";
 	public static final JImageIconLoader imageIconloader = new JImageIconLoader();
 	public ImageIcon logo = imageIconloader.getImageIcon("logo.gif");
 	public ImageIcon ball = imageIconloader.getImageIcon("ball.gif");
